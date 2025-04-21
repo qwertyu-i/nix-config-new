@@ -15,6 +15,7 @@
     ripgrep
     unzip
     ungoogled-chromium
+	gnupg
   ];
 
   fonts.packages = with pkgs; [
@@ -25,6 +26,9 @@
     #material-icons
     martian-mono
   ];
+
+  programs.adb.enable = true;
+  users.users.qwertyu.extraGroups = ["adbusers"];
 
   services.kanata = {
     enable = true;
