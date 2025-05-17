@@ -78,7 +78,7 @@
         (deflayer qwerty
           @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
           tab       q    w    e    r    t    y    u    i    o    p    [    ]    \
-          caps      @lm  @lc  @la  @ls  g    h    @rs  @ra  @rc  @rm  '         ret
+          esc       @lm  @lc  @la  @ls  g    h    @rs  @ra  @rc  @rm  '         ret
           lsft      z    x    c    v    b    n    m    ,    .    /    rsft
           lctl lmet lalt           spc                 ralt rmet rctl
         )
@@ -86,7 +86,7 @@
         "(deflayer gallium
           @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
           tab       b    l    d    c    v    j    f    o    u    ,    [    ]    \
-          caps      @lm  r    t    s    g    y    h    a    e    i    /         ret
+          esc       @lm  r    t    s    g    y    h    a    e    i    /         ret
           lsft      x    q    m    w    z    k    p    '    ;    .    rsft
           lctl lmet lalt           spc                 ralt rmet rctl
         )"
@@ -94,7 +94,7 @@
         "(deflayer colemak
           @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
           tab       q    w    f    p    g    j    l    u    y    ;    [    ]    \
-          caps      a    r    s    t    d    h    n    e    i    o    '         ret
+          esc       a    r    s    t    d    h    n    e    i    o    '         ret
           lsft      z    x    c    v    b    k    m    ,    .    /    rsft
           lctl lmet lalt           spc                 ralt rmet rctl
         )"
@@ -145,7 +145,7 @@
         (deflayer qwerty
           @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
           tab       q    w    e    r    t    y    u    i    o    p    [    ]    \
-          caps      @lm  @lc  @la  @ls  g    h    @rs  @ra  @rc  @rm  '         ret
+          esc       @lm  @lc  @la  @ls  g    h    @rs  @ra  @rc  @rm  '         ret
           lsft      z    x    c    v    b    n    m    ,    .    /    rsft
           lctl lmet lalt           spc                 ralt rmet rctl
         )
@@ -153,7 +153,7 @@
         "(deflayer gallium
           @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
           tab       b    l    d    c    v    j    f    o    u    ,    [    ]    \
-          caps      @lm  r    t    s    g    y    h    a    e    i    /         ret
+          esc       @lm  r    t    s    g    y    h    a    e    i    /         ret
           lsft      x    q    m    w    z    k    p    '    ;    .    rsft
           lctl lmet lalt           spc                 ralt rmet rctl
         )"
@@ -161,7 +161,7 @@
         "(deflayer colemak
           @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
           tab       q    w    f    p    g    j    l    u    y    ;    [    ]    \
-          caps      a    r    s    t    d    h    n    e    i    o    '         ret
+          esc       a    r    s    t    d    h    n    e    i    o    '         ret
           lsft      z    x    c    v    b    k    m    ,    .    /    rsft
           lctl lmet lalt           spc                 ralt rmet rctl
         )"
