@@ -103,7 +103,7 @@
           (deflayer colemak
             @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
             tab       q    w    f    p    g    j    l    u    y    ;    [    ]    \
-            esc       @lmc @lcc @lac @lsc g    y    @rsc @rac @rcc @rmc '         ret
+            esc       @lmc @lcc @lac @lsc d    h    @rsc @rac @rcc @rmc '         ret
             lsft      z    x    c    v    b    k    m    ,    .    /    rsft
             lctl lmet lalt           spc                 ralt rmet rctl
           )
