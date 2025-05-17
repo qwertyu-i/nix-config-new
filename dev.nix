@@ -83,21 +83,21 @@
           lctl lmet lalt           spc                 ralt rmet rctl
         )
 
-        "(deflayer gallium
+        (deflayer gallium
           @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
           tab       b    l    d    c    v    j    f    o    u    ,    [    ]    \
           esc       @lm  r    t    s    g    y    h    a    e    i    /         ret
           lsft      x    q    m    w    z    k    p    '    ;    .    rsft
           lctl lmet lalt           spc                 ralt rmet rctl
-        )"
+        )
 
-        "(deflayer colemak
+        (deflayer colemak
           @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
           tab       q    w    f    p    g    j    l    u    y    ;    [    ]    \
           esc       a    r    s    t    d    h    n    e    i    o    '         ret
           lsft      z    x    c    v    b    k    m    ,    .    /    rsft
           lctl lmet lalt           spc                 ralt rmet rctl
-        )"
+        )
       '';
       };
       usbKeyboard = {
@@ -150,21 +150,21 @@
           lctl lmet lalt           spc                 ralt rmet rctl
         )
 
-        "(deflayer gallium
+        (deflayer gallium
           @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
           tab       b    l    d    c    v    j    f    o    u    ,    [    ]    \
           esc       @lm  r    t    s    g    y    h    a    e    i    /         ret
           lsft      x    q    m    w    z    k    p    '    ;    .    rsft
           lctl lmet lalt           spc                 ralt rmet rctl
-        )"
+        )
 
-        "(deflayer colemak
+        (deflayer colemak
           @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
           tab       q    w    f    p    g    j    l    u    y    ;    [    ]    \
           esc       a    r    s    t    d    h    n    e    i    o    '         ret
           lsft      z    x    c    v    b    k    m    ,    .    /    rsft
           lctl lmet lalt           spc                 ralt rmet rctl
-        )"
+        )
       '';
       };
     };
