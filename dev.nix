@@ -57,7 +57,6 @@
             gal (layer-switch gallium)
             qwr (layer-switch qwerty)
             col (layer-switch colemak)
-            ;; colemak
             lmc (tap-hold $tap-time $hold-time a lmet )
             rmc (tap-hold $tap-time $hold-time o lmet )
             lcc (tap-hold $tap-time $hold-time r lctrl )
@@ -66,7 +65,6 @@
             rac (tap-hold $tap-time $hold-time e lalt )
             lsc (tap-hold $tap-time $hold-time t lsft )
             rsc (tap-hold $tap-time $hold-time n lsft )
-            :: gallium
             lmg (tap-hold $tap-time $hold-time n lmet )
             rmg (tap-hold $tap-time $hold-time i lmet )
             lcg (tap-hold $tap-time $hold-time r lctrl )
@@ -135,7 +133,6 @@
             gal (layer-switch gallium)
             qwr (layer-switch qwerty)
             col (layer-switch colemak)
-            ;; colemak
             lmc (tap-hold $tap-time $hold-time a lmet )
             rmc (tap-hold $tap-time $hold-time o lmet )
             lcc (tap-hold $tap-time $hold-time r lctrl )
@@ -144,7 +141,6 @@
             rac (tap-hold $tap-time $hold-time e lalt )
             lsc (tap-hold $tap-time $hold-time t lsft )
             rsc (tap-hold $tap-time $hold-time n lsft )
-            :: gallium
             lmg (tap-hold $tap-time $hold-time n lmet )
             rmg (tap-hold $tap-time $hold-time i lmet )
             lcg (tap-hold $tap-time $hold-time r lctrl )
