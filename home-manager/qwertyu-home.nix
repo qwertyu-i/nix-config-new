@@ -127,15 +127,15 @@ in
       "inactive_opacity" = "1.0";
       shadow = {
         "enabled" = "true";
-	"range" = "4";
-	"render_power" = "3";
-	"color" = "rgba(1a1a1aee)";
+        "range" = "4";
+        "render_power" = "3";
+        "color" = "rgba(1a1a1aee)";
       };
       blur = {
         "enabled" = "true";
-	"size" = "3";
-	"passes" = "1";
-	"vibrancy" = "0.1696";
+        "size" = "3";
+        "passes" = "1";
+        "vibrancy" = "0.1696";
       };
     };
 
@@ -215,7 +215,8 @@ in
   };
 
   wayland.windowManager.hyprland.extraConfig = ''
-    monitor = eDP-1, 1920x1080@60, 0x0, 1
+    monitor = DP-2, preferred, 0x0, 1
+    monitor = eDP-1, preferred, auto, 1
 
     exec-once = waybar & hyprpaper & dunst
 
@@ -254,7 +255,7 @@ in
         rounding = -1
         check_color = rgb(204, 136, 34)
         placeholder_text = <i><span foreground="##ebdbb2">put ur password poopy head</span></i>
-	fail_text = <i><span foreground="##ebdbb2">???</span></i>
+        fail_text = <i><span foreground="##ebdbb2">???</span></i>
         hide_input = false
         position = 0, -200
         halign = center
@@ -299,17 +300,17 @@ in
       }
       {
         timeout = 405;
-	on-timeout = "brightnessctl -s set 30%";
-	on-resume = "brightnessctl -r";
+        on-timeout = "brightnessctl -s set 30%";
+        on-resume = "brightnessctl -r";
       }
       {
         timeout = 420;
-	on-timeout = "hyprctl dispatch dpms off";
-	on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
+        on-timeout = "hyprctl dispatch dpms off";
+        on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
       }
       {
         timeout = 600;
-	on-timeout = "systemctl suspend && brightnessctl -r";
+        on-timeout = "systemctl suspend && brightnessctl -r";
       }
     ];
   };
@@ -557,40 +558,40 @@ in
     '';
     plugins = with pkgs.vimPlugins; [
       {
-      	plugin = nvim-lspconfig;
-	config = toLuaFile ./neovim/plugins/lsp.lua;
+              plugin = nvim-lspconfig;
+        config = toLuaFile ./neovim/plugins/lsp.lua;
       }
       {
         plugin = nvim-cmp;
-	config = toLuaFile ./neovim/plugins/lsp.lua;
+        config = toLuaFile ./neovim/plugins/lsp.lua;
       }
       {
         plugin = cmp-buffer;
-	config = toLuaFile ./neovim/plugins/lsp.lua;
+        config = toLuaFile ./neovim/plugins/lsp.lua;
       }
       {
         plugin = cmp-nvim-lsp;
-	config = toLuaFile ./neovim/plugins/lsp.lua;
+        config = toLuaFile ./neovim/plugins/lsp.lua;
       }
       {
         plugin = cmp-nvim-lsp-signature-help;
-	config = toLuaFile ./neovim/plugins/lsp.lua;
+        config = toLuaFile ./neovim/plugins/lsp.lua;
       }
       {
         plugin = telescope-nvim;
-	config = toLuaFile ./neovim/plugins/telescope.lua;
+        config = toLuaFile ./neovim/plugins/telescope.lua;
       }
       {
         plugin = telescope-fzf-native-nvim;
-	config = toLuaFile ./neovim/plugins/telescope.lua;
+        config = toLuaFile ./neovim/plugins/telescope.lua;
       }
       {
         plugin = gruvbox-nvim;
-	config = "colorscheme gruvbox";
+        config = "colorscheme gruvbox";
       }
       {
-      	plugin = lualine-nvim;
-	config = toLuaFile ./neovim/plugins/lualine.lua;
+        plugin = lualine-nvim;
+        config = toLuaFile ./neovim/plugins/lualine.lua;
       }
       {
         plugin = nvim-treesitter.withAllGrammars;
@@ -600,11 +601,11 @@ in
       }
       {
         plugin = nvim-ts-autotag;
-	config = toLuaFile ./neovim/plugins/autopairs.lua;
+        config = toLuaFile ./neovim/plugins/autopairs.lua;
       }
       {
         plugin = nvim-autopairs;
-	config = toLuaFile ./neovim/plugins/autopairs.lua;
+        config = toLuaFile ./neovim/plugins/autopairs.lua;
       }
     ];
     viAlias = true;
