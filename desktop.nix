@@ -30,6 +30,7 @@ in
     kdePackages.qtwayland
     wireguard-tools
     brightnessctl
+	pavucontrol
   ];
 
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
