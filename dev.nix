@@ -32,7 +32,7 @@
 
   services.emacs = {
     enable = true;
-    package = pkgs.emacs-pgtk
+    package = pkgs.emacs-pgtk;
   };
 
   services.kanata = {
