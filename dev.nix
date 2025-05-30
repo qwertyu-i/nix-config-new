@@ -30,6 +30,11 @@
   programs.adb.enable = true;
   users.users.qwertyu.extraGroups = ["adbusers"];
 
+  services.emacs = {
+    enable = true;
+    package = pkgs.emacs-pgtk
+  };
+
   services.kanata = {
     enable = true;
     keyboards = {

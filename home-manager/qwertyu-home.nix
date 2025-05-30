@@ -42,12 +42,6 @@ in
 
   #xdg.portal.enable = true;
 
-  # emacs
-  programs.emacs = {
-    enable = true;
-    package = pkgs.emacs-pgtk;
-  };
-
   # git config
   programs.git = {
     enable = true;
@@ -196,7 +190,7 @@ in
       "$mod SHIFT, 8, movetoworkspace, 8"
       "$mod SHIFT, 9, movetoworkspace, 9"
       "$mod SHIFT, 0, movetoworkspace, 10"
-      "$mod, M, exec, slurp | grim -g - - | wl-copy"
+      "$mod, M, exec, slurp | grim -g - - | wl-copy && wl-paste > ~/screenshots/$(date +%F_%T).png"
       "$mod, F11, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       "$mod, F12, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
     ];
@@ -218,7 +212,7 @@ in
     monitor = DP-2, preferred, 0x0, 1
     monitor = eDP-1, preferred, auto, 1
 
-    exec-once = waybar & hyprpaper & dunst
+    exec-once = waybar & hyprpaper & dunst & emacsclient
 
     animation = windows, 1, 7, myBezier
     animation = windowsOut, 1, 7, default, popin 80%
