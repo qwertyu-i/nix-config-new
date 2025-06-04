@@ -32,6 +32,7 @@ in
     brightnessctl
     pavucontrol
     openmw
+	btop
   ];
 
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
