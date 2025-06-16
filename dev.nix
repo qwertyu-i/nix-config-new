@@ -17,6 +17,7 @@
     ungoogled-chromium
     gnupg
     isync
+    goimapnotify
     notmuch
     notmuch.emacs
   ];
@@ -24,9 +25,7 @@
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
-    nerd-fonts.martian-mono
     nerd-fonts.symbols-only
-    #material-icons
     martian-mono
   ];
 
@@ -68,8 +67,9 @@
             gal (layer-switch gallium)
             qwr (layer-switch qwerty)
             col (layer-switch colemak)
-            sym (layer-while-held symbols)
-            nav (layer-while-held navigation)
+            sym (tap-hold $tap-time $hold-time tab (layer-while-held symbols))
+            nav (tap-hold $tap-time $hold-time esc (layer-while-held navigation))
+			mse (layer-while-held mouse)
             lmc (tap-hold $tap-time $hold-time a lmet )
             rmc (tap-hold $tap-time $hold-time o lmet )
             lcc (tap-hold $tap-time $hold-time r lctrl )
@@ -101,43 +101,51 @@
           )
 
           (deflayer qwerty
-            @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
-            tab       q    w    e    r    t    y    u    i    o    p    [    ]    \
-            esc       a    s    d    f    g    h    j    k    l    ;    '         ret
-            lsft      z    x    c    v    b    n    m    ,    .    /    rsft
+            @grl 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            esc  a    s    d    f    g    h    j    k    l    ;    '         ret
+            lsft z    x    c    v    b    n    m    ,    .    /    rsft
             lctl lmet lalt           spc                 ralt rmet rctl
           )
 
           (deflayer gallium
-            @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
-            tab       b    l    d    c    v    _   j    f    o    u    ,    ]    \
-            esc       @lmg @lcg @lag @lsg g    _   y    @rsg @rag @rcg @rmg      ret
-            lsft      x    q    m    w    z    _   k    p    '    ;    .   
-            lctl @nav esc            spc                bspc @sym ret 
+            b    l    d    c    v    XX   XX   XX   j    f    o    u    ,    XX
+            @lmg @lcg @lag @lsg g    XX   XX   XX   y    @rsg @rag @rcg @rmg XX
+            x    q    m    w    z    XX   XX   XX   k    p    '    ;    .
+            XX   XX   @mse XX   XX   XX   XX   XX   XX   ret  XX   XX
+            XX   XX   @nav           spc            bspc @sym XX
           )
 
           (deflayer colemak
-            @grl      1    2    3    4    5    6    7    8    9    0    -    =    bspc
-            tab       q    w    f    p    g    j    l    u    y    ;    [    ]    \
-            esc       @lmc @lcc @lac @lsc d    h    @rsc @rac @rcc @rmc '         ret
-            lsft      z    x    c    v    b    k    m    ,    .    /    rsft
+            @grl 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    f    p    g    j    l    u    y    ;    [    ]    \
+            esc  @lmc @lcc @lac @lsc d    h    @rsc @rac @rcc @rmc '         ret
+            lsft z    x    c    v    b    k    m    ,    .    /    rsft
             lctl lmet lalt           spc                 bspc @sym rctl
           )
 
           (deflayer symbols
-            _    _    _    _    _    _    _    _    _    _    _    _    _    _
-            _    S-1  S-2  S-3  S-4  S-5  _    =    7    8    9    +    _    _
-            _    \    S-\  S-[  S-9  [    _    S-8  4    5    6    -    _ 
-            _    S-6  S-7  S-]  S-0  ]    _    0    1    2    3    /      
-            _    _    grv            tab            _    _    _           
+            S-1  S-2  S-3  S-4  S-5  XX   XX   XX   =    7    8    9    +    XX
+            \    S-\  S-[  S-9  [    XX   XX   XX   S-8  4    5    6    -    XX
+            S-6  S-7  S-]  S-0  ]    XX   XX   XX   0    1    2    3    /
+            XX   XX   @grl XX   XX   XX   XX   XX   XX   XX   XX   XX
+            XX   XX   XX             tab            XX   XX   XX
           )
 
           (deflayer navigation
-		    _    _    _    _    _    _    _    _    _    _    _    _    _    _
-            _    f9   f10  f11  f12  _    _    _    _    _    _    _    _    _
-            _    f5   f6   f7   f8   _    _    _    lft  down up   rght _
-            _    f1   f2   f3   f4   _    _    _    @msl @msd @msu @msr
-            _    _    _              _              mlft mmid mrgt
+		    f9   f10  f11  f12  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+            f5   f6   f7   f8   XX   XX   XX   XX   XX   lft  down up   rght XX
+            f1   f2   f3   f4   XX   XX   XX   XX   XX   XX   XX   XX   XX
+            XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+            XX   XX   XX             XX             XX   XX   XX
+		  )
+
+		  (deflayer mouse
+            XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+            XX   XX   XX   XX   XX   XX   XX   XX   XX   @msl @msd @msu @msr XX
+            XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+            XX   XX   XX   XX   XX   XX   XX   XX   XX   mrgt XX   XX
+            XX   XX   XX             XX             mlft mmid XX
 		  )
         '';
       };

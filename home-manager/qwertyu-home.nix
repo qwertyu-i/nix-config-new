@@ -77,7 +77,7 @@ in
   # foot terminal configuration
   programs.foot.settings = {
     main = {
-      font = "MartianMono Nerd Font:size=12";
+      font = "Martian Mono:size=12";
     };
 
     colors = {
@@ -266,7 +266,7 @@ in
       text = cmd[update:1000] echo "$(date +"%A, %B %d")"
       color = rgba(235, 219, 178, 1)
       font_size = 22
-      font_family = MartianMono Nerd Font
+      font_family = Martian Mono
       position = 0, 300
       halign = center
       valign = center
@@ -277,7 +277,7 @@ in
       text = cmd[update:1000] echo "$(date +"%-H:%M")"
       color = rgba(235, 219, 178, 1)
       font_size = 95
-      font_family = MartianMono Nerd Font
+      font_family = Martian Mono
       position = 0, 200
       halign = center
       valign = center
@@ -294,21 +294,12 @@ in
     };
     listener = [
       {
-        timeout = 300;
-        on-timeout = "hyprlock";
-      }
-      {
-        timeout = 405;
+        timeout = 270;
         on-timeout = "brightnessctl -s set 30%";
         on-resume = "brightnessctl -r";
       }
-      {
-        timeout = 420;
-        on-timeout = "hyprctl dispatch dpms off";
-        on-resume = "hyprctl dispatch dpms on && brightnessctl -r";
-      }
-      {
-        timeout = 600;
+	  {
+        timeout = 300;
         on-timeout = "systemctl suspend && brightnessctl -r";
       }
     ];
@@ -669,7 +660,7 @@ in
 
       sort = "yes";
 
-      font = "MartianMono Nerd Font";
+      font = "Martian Mono";
 
       line_height = 0;
 
@@ -754,7 +745,7 @@ in
 
   programs.fuzzel.settings = {
     main = {
-      font = "MartianMono Nerd Font";
+      font = "Martian Mono";
     };
 
     border = {
