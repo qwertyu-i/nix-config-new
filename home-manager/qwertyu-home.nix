@@ -3,9 +3,14 @@ let
   user = "qwertyu";
   homedir = "/home/${user}";
   # name of selected wallpaper in the wallpaper directory NOT PATH
-  wallpaper_name = "kevin-wang-EuTlfLqYWp8-unsplash.jpg";
+  wallpaper_name = "nixos.png";
 in
 {
+  imports =
+    [
+      ./niri.nix
+    ];
+
   home.username = user;
   home.homeDirectory = homedir;
   
@@ -42,17 +47,66 @@ in
 
   #xdg.portal.enable = true;
 
-  services.mbsync = {
-    enable = true;
-    postExec = "${pkgs.notmuch}/bin/notmuch new";
+  accounts.email.accounts = {
+    luke = {
+      address = "luke.z24680@gmail.com";
+	  userName = "luke.z24680@gmail.com";
+	  passwordCommand = toString ( pkgs.writeShellScript "get-oauth" ''
+		## ~!shell!~
+		export PATH=/run/wrappers/bin:/home/qwertyu/.nix-profile/bin:/nix/profile/bin:/home/qwertyu/.local/state/nix/profile/bin:/etc/profiles/per-user/qwertyu/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/nix/store/hhfm5fkvb1alg1np5a69m2qlcjqhr062-binutils-wrapper-2.44/bin:/nix/store/3n871f246mhqz4hq95jprwi674l3yhzc-hyprland-qtutils-0.1.4/bin:/nix/store/fx0cjyvqjmfnbqxcd60bwaf36ak16q2q-pciutils-3.13.0/bin:/nix/store/scygnffjs378x8h9ssk2fk765p80g030-pkgconf-wrapper-2.4.3/bin
+	    oama access luke.z24680@gmail.com
+	  '' );
+      primary = true;
+	  imap = {
+        host = "imap.gmail.com";
+		port = 993;
+		tls = {
+		  enable = true;
+		};
+	  };
+      imapnotify = {
+        enable = true;
+    	onNotify = "${pkgs.isync}/bin/mbsync gmail && ${pkgs.notmuch}/bin/notmuch new && ${pkgs.dunst}/bin/dunstify \"You've got mail!\"";
+		boxes = [ "INBOX" ];
+		extraArgs =	[
+		  "-log-level debug"
+		];
+		extraConfig = {
+		  tlsOptions = {
+		    rejectUnauthorized = false;
+		  };
+		  xoAuth2 = true;
+		};
+      };
+    };
   };
   
+  services.imapnotify = {
+    enable = true;
+  };
+
   # git config
   programs.git = {
     enable = true;
     userEmail = "luke.z24680@gmail.com";
     userName = "qwertyu";
   };
+
+  programs.emacs = {
+    enable = true;
+    package = with pkgs; (
+      (emacsPackagesFor emacs-gtk).emacsWithPackages (
+        epkgs: with epkgs; [
+          tree-sitter-langs
+          vterm
+          tree-sitter
+          tsc
+          treesit-grammars.with-all-grammars 
+        ]
+      )
+    );
+  };
+
 
   programs.tmux = {
     enable = true;
@@ -106,7 +160,7 @@ in
   # hyprland configuration
   wayland.windowManager.hyprland.settings = {
 
-    "$terminal" = "footclient";
+    "$terminal" = "foot";
     "$menu" = "fuzzel";
 
     general = {
@@ -141,7 +195,7 @@ in
     "$mod" = "Mod4";
 
     animations = {
-      "enabled" = "true";
+      "enabled" = "false";
 
       "bezier" = "myBezier, 0.05, 0.9, 0.1, 1.05";
     };
@@ -195,8 +249,9 @@ in
       "$mod SHIFT, 8, movetoworkspace, 8"
       "$mod SHIFT, 9, movetoworkspace, 9"
       "$mod SHIFT, 0, movetoworkspace, 10"
+      "$mod SHIFT, Q, layoutmsg, swapwithmaster"
       "$mod, M, exec, slurp | grim -g - - | wl-copy && wl-paste > ~/screenshots/$(date +%F_%T).png"
-      "$mod, T, exec, emacsclient -c"
+      "$mod, T, exec, emacs"
       "$mod, F11, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       "$mod, F12, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
     ];
@@ -215,10 +270,10 @@ in
   };
 
   wayland.windowManager.hyprland.extraConfig = ''
-    monitor = DP-2, preferred, 0x0, 1
+    monitor = HDMI-A-1, 1920x1080@165, 0x0, 1
     monitor = eDP-1, preferred, auto, 1
 
-    exec-once = waybar & hyprpaper & dunst & foot --server
+    exec-once = waybar & hyprpaper & dunst
     animation = windows, 1, 7, myBezier
     animation = windowsOut, 1, 7, default, popin 80%
     animation = border, 1, 10, default
@@ -321,10 +376,10 @@ in
       modules-left = [
         "custom/icon"
         "tray"
-        "hyprland/window"
+        "niri/window"
       ];
       modules-center = [
-        "hyprland/workspaces"
+        "niri/workspaces"
       ];
       modules-right = [
         "network"
@@ -345,18 +400,36 @@ in
         show-passive-items = false;
       };
 
-      "hyprland/window" = {
+      # "hyprland/window" = {
+      #   icon = true;
+      #   icon-size = 18;
+      #   format = "{initialTitle}";
+      # };
+
+      "niri/window" = {
         icon = true;
         icon-size = 18;
-        format = "{initialTitle}";
+        format = "{title}";
       };
 
-      "hyprland/workspaces" = {
-        persistent-workspaces = {
-          "*" = [ 1 2 3 ];
-        };
+      # "hyprland/workspaces" = {
+      #   persistent-workspaces = {
+      #     "*" = [ 1 2 3 ];
+      #   };
+      #   format = "  {icon}  ";
+      #   format-icons = {
+      #     active = "";
+      #     default = "";
+      #     urgent = "";
+      #   };
+      # };
+
+      "niri/workspaces" = {
         format = "  {icon}  ";
         format-icons = {
+          emacs = "";
+          media = "󰖟";
+          shell = "󱆃";
           active = "";
           default = "";
           urgent = "";

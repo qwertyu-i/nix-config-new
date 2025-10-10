@@ -19,6 +19,8 @@
 
   networking.hostName = "QwertyuDesktop"; # Define your hostname.
 
+  hardware.opentabletdriver.enable = true;
+
   services.tlp = {
     enable = true;
     settings = {
@@ -27,8 +29,22 @@
     };
   };
 
+  environment.sessionVariables = {
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+  };
+
   # Enable networking
   networking.wireless.iwd.enable = true;
+  services.printing = {
+    enable = true;
+	drivers = [ pkgs.gutenprint ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   # Set your time zone.
   time.timeZone = "America/Toronto";
