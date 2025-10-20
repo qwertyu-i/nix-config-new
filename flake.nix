@@ -9,18 +9,15 @@
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, lanzaboote, sops-nix }: {
 
     nixosConfigurations = {
-      hostname = nixpkgs.lib.nixosSystem {
+      lockbox = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           lanzaboote.nixosModules.lanzaboote
-          sops-nix.nixosModules.sops
 
           ({ pkgs, lib, ... }: {
             boot.loader.systemd-boot.enable = lib.mkForce false;
@@ -30,7 +27,7 @@
               pkiBundle = "/var/lib/sbctl";
             };
           })
-          ./configuration.nix
+          ./hosts/lockbox/default.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

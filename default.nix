@@ -35,10 +35,6 @@
 
   # Enable networking
   networking.wireless.iwd.enable = true;
-  services.printing = {
-    enable = true;
-	drivers = [ pkgs.gutenprint ];
-  };
 
   services.avahi = {
     enable = true;
@@ -59,13 +55,15 @@
     extraGroups = [ "wheel" "seat" "video" ];
   };
 
-  security.doas.enable = true;
+  security.doas = {
+    enable = true;
+    extraRules = [{
+      groups = [ "wheel" ];
+      persist = true;
+      keepEnv = true;
+    }];
+  };
   security.sudo.enable = false;
-  security.doas.extraRules = [{
-    groups = [ "wheel" ];
-    persist = true;
-    keepEnv = true;
-  }];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -75,12 +73,7 @@
   environment.systemPackages = with pkgs; [
     sbctl
     wget
-    iwd
-    doas
-    neovim
     git
-    pulseaudio
-    pipewire
     zip
   ];
 

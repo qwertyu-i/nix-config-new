@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <poll.h>
 #include <limits.h>
 #include <stdint.h>
 #include <sys/types.h>
@@ -60,7 +61,7 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeStatus }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMIcon, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
@@ -213,6 +214,7 @@ static void run(void);
 static void scan(void);
 static int sendevent(Client *c, Atom proto);
 static void sendmon(Client *c, Monitor *m);
+static void sendstatusbar(const Arg *arg);
 static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
@@ -220,8 +222,10 @@ static void setgaps(const Arg *arg);
 static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
+static void setsignal(int sig, void (*handler)(int sig));
 static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
+static void sigalrm(int unused);
 static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
@@ -256,13 +260,16 @@ static void autostart_exec(void);
 
 /* variables */
 static const char broken[] = "broken";
-static char stext[256];
 static int screen;
 static int sw, sh;           /* X display screen geometry width, height */
 static int bh;               /* bar height */
 static int lrpad;            /* sum of left and right padding for text */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
+static unsigned int blocknum; /* blocks idx in mouse click */
+static unsigned int stsw = 0; /* status width */
 static unsigned int numlockmask = 0;
+static unsigned int sleepinterval = 0, maxinterval = 0, count = 0;
+static unsigned int execlock = 0; /* ensure only one child process exists per block at an instance */
 static void (*handler[LASTEvent]) (XEvent *) = {
 	[ButtonPress] = buttonpress,
 	[ClientMessage] = clientmessage,
@@ -1918,6 +1925,21 @@ setup(void)
 
 	}
 
+	/* setsignal(SIGCHLD, sigchld); /\* zombies *\/ */
+	setsignal(SIGALRM, sigalrm); /* timer */
+
+	#ifdef __linux__
+	/* handle defined real time signals (linux only) */
+	for (i = 0; i < LENGTH(blocks); i++)
+		if (blocks[i].signal)
+			setsignal(SIGRTMIN + blocks[i].signal, getsigcmds);
+	#endif /* __linux__ */
+
+	/* pid as an enviromental variable */
+	char envpid[16];
+	snprintf(envpid, LENGTH(envpid), "%d", getpid());
+	setenv("STATUSBAR", envpid, 1);
+
 	/* init screen */
 	screen = DefaultScreen(dpy);
 	sw = DisplayWidth(dpy, screen);
@@ -1980,6 +2002,22 @@ setup(void)
 }
 
 void
+setsignal(int sig, void (*handler)(int unused))
+{
+	struct sigaction sa;
+
+	sa.sa_handler = handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_NOCLDSTOP | SA_RESTART;
+
+	if (sigaction(sig, &sa, 0) == -1) {
+		fprintf(stderr, "signal %d ", sig);
+		perror("failed to setup");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void
 seturgent(Client *c, int urg)
 {
 	XWMHints *wmh;
@@ -2008,6 +2046,14 @@ showhide(Client *c)
 		showhide(c->snext);
 		XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
 	}
+}
+
+void
+sigalrm(int unused)
+{
+	getcmds(count);
+	alarm(sleepinterval);
+	count = (count + sleepinterval - 1) % maxinterval + 1;
 }
 
 void

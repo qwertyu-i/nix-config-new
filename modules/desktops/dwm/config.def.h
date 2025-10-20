@@ -19,7 +19,21 @@ static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_fg,    col_normbg,col_normborder },
 	[SchemeSel]  = { col_fg,    col_selbg, col_selborder  },
+	[SchemeStatus]={ col_fg,    col_normbg,NULL  },
 };
+
+/* status bar */
+static const Block blocks[] = {
+	/* fg     command				interval	signal */
+	{ col_fg, "date --date '%c'",		        1,		1 },
+};
+
+/* inverse the order of the blocks, comment to disable */
+#define INVERSED	1
+/* delimeter between blocks commands. NULL character ('\0') means no delimeter. */
+static char delimiter[] = " ";
+/* max number of character that one block command can output */
+#define CMDLENGTH	50
 
 static const char *const autostart[] = {
 	"dunst", NULL,

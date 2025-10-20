@@ -5,7 +5,7 @@ in
 {
   environment.systemPackages = with pkgs; [
     hyprland
-	labwc
+	  labwc
     hyprpaper
     hyprlock
     hypridle
@@ -31,12 +31,12 @@ in
     brightnessctl
     pavucontrol
     openmw
-	btop
-	xwayland-satellite
-	dmenu
-	alacritty
-	picom
-	xautolock
+	  btop
+	  xwayland-satellite
+	  dmenu
+	  alacritty
+	  picom
+	  xautolock
   ];
 
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
@@ -54,7 +54,7 @@ in
   programs.slock.enable = true;
   programs.xss-lock = {
     enable = true;
-	lockerCommand = "slock";
+	  lockerCommand = "slock";
   };
 
   services.xserver = {
