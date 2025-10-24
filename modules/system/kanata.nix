@@ -1,59 +1,7 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    tmux
-    gnumake
-    ghc
-    clang-tools
-    clang
-    nasm
-    gradle
-    maven
-    python313Packages.python-lsp-server
-    lua-language-server
-    nil
-    haskell-language-server
-    typescript-language-server
-    vscode-langservers-extracted
-    jdt-language-server
-    nodejs
-    pnpm
-    ripgrep
-  	python3
-    unzip
-    ungoogled-chromium
-    isync
-    notmuch
-    notmuch.emacs
-    oama
-    gnome-keyring
-    seahorse
-    libsecret
-    pass
-    pinentry-all
-    eclipses.eclipse-java
-    jdk
-    qemu
-  ];
-
-  services.gnome.gnome-keyring.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-  };
-
-  services.flatpak.enable = true;
-
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    nerd-fonts.symbols-only
-    martian-mono
-  ];
-
-  programs.adb.enable = true;
-  users.users.qwertyu.extraGroups = ["adbusers"];
-
+  # only used on my laptop so devices don't matter
   services.kanata = {
     enable = true;
     keyboards = {

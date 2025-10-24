@@ -1,5 +1,10 @@
 { pkgs, ... }:
 {
+  environments.systemPackages = with pkgs; [
+    picom
+    dmenu
+  ];
+
   programs.slock.enable = true;
   services.xserver = {
     enable = true;
@@ -7,7 +12,7 @@
     windowManager.dwm = {
       enable = true;
       package = pkgs.dwm.overrideAttrs {
-        src = ./dwm;
+        src = ./source;
 		    buildInputs = [
 		      pkgs.imlib2
 		      pkgs.libx11

@@ -3,13 +3,6 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./dev.nix
-      ./desktop.nix
-    ];
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -17,7 +10,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  networking.hostName = "QwertyuDesktop"; # Define your hostname.
+  networking.hostName = "DefaultNixOSHostname"; # Define your hostname.
 
   hardware.opentabletdriver.enable = true;
 
@@ -29,9 +22,7 @@
     };
   };
 
-  environment.sessionVariables = {
-    _JAVA_AWT_WM_NONREPARENTING = "1";
-  };
+  services.flatpak.enable = true;
 
   # Enable networking
   networking.wireless.iwd.enable = true;
@@ -55,6 +46,10 @@
     extraGroups = [ "wheel" "seat" "video" ];
   };
 
+  environment.systemPackages = with pkgs; [
+    pavucontrol
+  ];
+
   security.doas = {
     enable = true;
     extraRules = [{
@@ -67,20 +62,6 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    sbctl
-    wget
-    git
-    zip
-  ];
-
-  environment.variables = {
-    EDITOR = "nvim";
-    MANPAGER = "nvim +Man!";
-  };
 
   security.rtkit.enable = true;
   services.pipewire = {
