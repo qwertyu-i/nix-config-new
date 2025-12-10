@@ -10,7 +10,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  networking.hostName = "DefaultNixOSHostname"; # Define your hostname.
+  networking.hostName = "qwertyuLockBox"; # Define your hostname.
 
   hardware.opentabletdriver.enable = true;
 
