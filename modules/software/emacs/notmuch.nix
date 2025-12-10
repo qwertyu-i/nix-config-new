@@ -7,7 +7,7 @@
     isync
     notmuch
     notmuch.emacs
-    # oauth
+    # oauth software
     oama
     # stores keys
     gnome-keyring

@@ -6,5 +6,6 @@
     openmw
     etterna
   ];
+
   programs.steam.enable = true;
 }
