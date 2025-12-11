@@ -11,7 +11,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, lanzaboote, sops-nix }: {
+  outputs = { self, nixpkgs, home-manager, lanzaboote }: {
 
     nixosConfigurations = {
       lockbox = nixpkgs.lib.nixosSystem {
@@ -32,7 +32,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.qwertyu = import ./home-manager/qwertyu-home.nix;
+            home-manager.users.qwertyu = import ./home/users/qwertyu.nix;
           }
         ];
       };

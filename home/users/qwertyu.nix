@@ -1,5 +1,5 @@
 # i'll get around to modularising this... some day...
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   user = "qwertyu";
   homedir = "/home/${user}";
@@ -7,11 +7,6 @@ let
   wallpaper_name = "nixos.png";
 in
 {
-  imports =
-    [
-      ./niri.nix
-    ];
-
   home.username = user;
   home.homeDirectory = homedir;
   
@@ -610,71 +605,71 @@ in
   '';
 
   # neovim configuration
-  programs.neovim = 
-  let
-    toLua = str: "lua << EOF\n${str}\nEOF\n";
-    toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
-  in
-  {
-    enable = true;
-    extraLuaConfig = ''
-      ${builtins.readFile ./neovim/init.lua}
-    '';
-    plugins = with pkgs.vimPlugins; [
-      {
-              plugin = nvim-lspconfig;
-        config = toLuaFile ./neovim/plugins/lsp.lua;
-      }
-      {
-        plugin = nvim-cmp;
-        config = toLuaFile ./neovim/plugins/lsp.lua;
-      }
-      {
-        plugin = cmp-buffer;
-        config = toLuaFile ./neovim/plugins/lsp.lua;
-      }
-      {
-        plugin = cmp-nvim-lsp;
-        config = toLuaFile ./neovim/plugins/lsp.lua;
-      }
-      {
-        plugin = cmp-nvim-lsp-signature-help;
-        config = toLuaFile ./neovim/plugins/lsp.lua;
-      }
-      {
-        plugin = telescope-nvim;
-        config = toLuaFile ./neovim/plugins/telescope.lua;
-      }
-      {
-        plugin = telescope-fzf-native-nvim;
-        config = toLuaFile ./neovim/plugins/telescope.lua;
-      }
-      {
-        plugin = gruvbox-nvim;
-        config = "colorscheme gruvbox";
-      }
-      {
-        plugin = lualine-nvim;
-        config = toLuaFile ./neovim/plugins/lualine.lua;
-      }
-      {
-        plugin = nvim-treesitter.withAllGrammars;
-      }
-      {
-        plugin = render-markdown-nvim;
-      }
-      {
-        plugin = nvim-ts-autotag;
-        config = toLuaFile ./neovim/plugins/autopairs.lua;
-      }
-      {
-        plugin = nvim-autopairs;
-        config = toLuaFile ./neovim/plugins/autopairs.lua;
-      }
-    ];
-    viAlias = true;
-    vimAlias = true;
-  };
+  # programs.neovim = 
+  # let
+  #   toLua = str: "lua << EOF\n${str}\nEOF\n";
+  #   toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+  # in
+  # {
+  #   enable = true;
+  #   extraLuaConfig = ''
+  #     ${builtins.readFile ./neovim/init.lua}
+  #   '';
+  #   plugins = with pkgs.vimPlugins; [
+  #     {
+  #             plugin = nvim-lspconfig;
+  #       config = toLuaFile ./neovim/plugins/lsp.lua;
+  #     }
+  #     {
+  #       plugin = nvim-cmp;
+  #       config = toLuaFile ./neovim/plugins/lsp.lua;
+  #     }
+  #     {
+  #       plugin = cmp-buffer;
+  #       config = toLuaFile ./neovim/plugins/lsp.lua;
+  #     }
+  #     {
+  #       plugin = cmp-nvim-lsp;
+  #       config = toLuaFile ./neovim/plugins/lsp.lua;
+  #     }
+  #     {
+  #       plugin = cmp-nvim-lsp-signature-help;
+  #       config = toLuaFile ./neovim/plugins/lsp.lua;
+  #     }
+  #     {
+  #       plugin = telescope-nvim;
+  #       config = toLuaFile ./neovim/plugins/telescope.lua;
+  #     }
+  #     {
+  #       plugin = telescope-fzf-native-nvim;
+  #       config = toLuaFile ./neovim/plugins/telescope.lua;
+  #     }
+  #     {
+  #       plugin = gruvbox-nvim;
+  #       config = "colorscheme gruvbox";
+  #     }
+  #     {
+  #       plugin = lualine-nvim;
+  #       config = toLuaFile ./neovim/plugins/lualine.lua;
+  #     }
+  #     {
+  #       plugin = nvim-treesitter.withAllGrammars;
+  #     }
+  #     {
+  #       plugin = render-markdown-nvim;
+  #     }
+  #     {
+  #       plugin = nvim-ts-autotag;
+  #       config = toLuaFile ./neovim/plugins/autopairs.lua;
+  #     }
+  #     {
+  #       plugin = nvim-autopairs;
+  #       config = toLuaFile ./neovim/plugins/autopairs.lua;
+  #     }
+  #   ];
+  #   viAlias = true;
+  #   vimAlias = true;
+  # };
 
   services.dunst.settings = {
     global = {
