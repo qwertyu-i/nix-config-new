@@ -1,14 +1,18 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
-    ../../default.nix
-    ../../modules/dev/kitchensink.nix
-    # builtins.path { path = ../../modules/software;
-    #                 recursive = true; }
-    # builtins.path { path = ../../modules/system;
-    #                 recursive = true; }
-    ../../modules/desktops/dwm/dwm.nix
-    ./hardware-configuration.nix 
-  ];
+        ../../default.nix
+        ../../modules/desktops/dwm/dwm.nix
+        ./hardware-configuration.nix 
+      ]
+      ++ lib.filter 
+        (n: lib.strings.hasSuffix ".nix" n)
+        (lib.filesystem.listFilesRecursive ../../modules/system)
+      ++ lib.filter 
+        (n: lib.strings.hasSuffix ".nix" n)
+        (lib.filesystem.listFilesRecursive ../../modules/software)
+      ++ lib.filter 
+        (n: lib.strings.hasSuffix ".nix" n)
+        (lib.filesystem.listFilesRecursive ../../modules/dev);
 }
