@@ -36,6 +36,18 @@
           }
         ];
       };
+      basedtop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/basedtop/default.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.qwertyu = import ./home/users/qwertyu.nix;
+          }
+        ];
+      };
     };
 
   };

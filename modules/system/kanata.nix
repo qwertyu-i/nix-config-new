@@ -31,18 +31,18 @@
             grl (tap-hold $tap-time $hold-time grv (layer-toggle layers))
             gal (layer-switch gallium)
             qwr (layer-switch qwerty)
-            col (layer-switch colemak)
+            col (layer-switch focal)
             sym (tap-hold $tap-time $hold-time tab (layer-while-held symbols))
             nav (tap-hold $tap-time $hold-time esc (layer-while-held navigation))
-    		mse (layer-while-held mouse)
-            lmc (tap-hold $tap-time $hold-time a lmet )
-            rmc (tap-hold $tap-time $hold-time o lmet )
-            lcc (tap-hold $tap-time $hold-time r lctrl )
-            rcc (tap-hold $tap-time $hold-time i lctrl )
-            lac (tap-hold $tap-time $hold-time s lalt )
-            rac (tap-hold $tap-time $hold-time e lalt )
-            lsc (tap-hold $tap-time $hold-time t lsft )
-            rsc (tap-hold $tap-time $hold-time n lsft )
+            mse (layer-while-held mouse)
+            lmf (tap-hold $tap-time $hold-time s lmet )
+            rmf (tap-hold $tap-time $hold-time i lmet )
+            lcf (tap-hold $tap-time $hold-time r lctrl )
+            rcf (tap-hold $tap-time $hold-time e lctrl )
+            laf (tap-hold $tap-time $hold-time n lalt )
+            raf (tap-hold $tap-time $hold-time a lalt )
+            lsf (tap-hold $tap-time $hold-time t lsft )
+            rsf (tap-hold $tap-time $hold-time c lsft )
             lmg (tap-hold $tap-time $hold-time n lmet )
             rmg (tap-hold $tap-time $hold-time i lmet )
             lcg (tap-hold $tap-time $hold-time r lctrl )
@@ -80,13 +80,13 @@
             XX   XX   @mse XX   XX   XX   XX   XX   XX   ret  XX   XX
             XX   XX   @nav           spc            bspc @sym XX
           )
-
-          (deflayer colemak
-            @grl 1    2    3    4    5    6    7    8    9    0    -    =    bspc
-            tab  q    w    f    p    g    j    l    u    y    ;    [    ]    \
-            esc  @lmc @lcc @lac @lsc d    h    @rsc @rac @rcc @rmc '         ret
-            lsft z    x    c    v    b    k    m    ,    .    /    rsft
-            lctl lmet lalt           spc                 bspc @sym rctl
+ 
+          (deflayer focal
+            v    l    h    g    k    XX   XX   XX   q    f    o    u    j    XX
+            @lmf @lcf @laf @lsf b    XX   XX   XX   y    @rsf @raf @rcf @rmf XX
+            z    x    m    d    p    XX   XX   XX   '    w    .    ;    ,
+            XX   XX   @mse XX   XX   XX   XX   XX   XX   ret  XX   XX
+            XX   XX   @nav           spc            bspc @sym XX
           )
 
           (deflayer symbols

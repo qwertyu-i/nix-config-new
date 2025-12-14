@@ -25,7 +25,7 @@ static const char *colors[][3]      = {
 /* status bar */
 static const Block blocks[] = {
 	/* fg     command				interval	signal */
-	{ col_fg, "date --date '%c'",		        1,		1 },
+	{ col_fg, "date +'%H:%M:%S'",		        1,		1 },
 };
 
 /* inverse the order of the blocks, comment to disable */
