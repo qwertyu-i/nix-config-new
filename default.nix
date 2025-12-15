@@ -6,7 +6,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/641cff26-61af-45b9-b330-4c1ea728eb08";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
