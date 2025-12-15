@@ -91,7 +91,7 @@ in
   programs.emacs = {
     enable = true;
     package = with pkgs; (
-      (emacsPackagesFor emacs-gtk).emacsWithPackages (
+      (emacsPackagesFor emacs).emacsWithPackages (
         epkgs: with epkgs; [
           tree-sitter-langs
           vterm

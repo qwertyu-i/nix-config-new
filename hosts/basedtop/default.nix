@@ -15,5 +15,9 @@
       ++ lib.filter 
         (n: lib.strings.hasSuffix ".nix" n)
         (lib.filesystem.listFilesRecursive ../../modules/dev);
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;
+  networking.hostName = lib.mkForce "qwertyuBasedtop";
+  services.tlp.enable = lib.mkForce false;
 }
