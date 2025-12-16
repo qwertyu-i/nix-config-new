@@ -36,10 +36,10 @@
           }
         ];
       };
-      basedtop = nixpkgs.lib.nixosSystem {
+      basedbox = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./hosts/basedtop/default.nix
+          ./hosts/basedbox/default.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

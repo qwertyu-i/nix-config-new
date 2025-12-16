@@ -18,6 +18,6 @@
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true;
-  networking.hostName = lib.mkForce "qwertyuBasedtop";
+  networking.hostName = lib.mkForce "qwertyuBasedBox";
   services.tlp.enable = lib.mkForce false;
 }

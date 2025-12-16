@@ -37,7 +37,6 @@ static char delimiter[] = " ";
 
 static const char *const autostart[] = {
 	"dunst", NULL,
-	"picom", "--config", "/dev/null", "--backend", "xrender", "--vsync", NULL,
 	NULL /* terminate */
 };
 
