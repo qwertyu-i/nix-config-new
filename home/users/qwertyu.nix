@@ -43,49 +43,52 @@ in
 
   #xdg.portal.enable = true;
 
+  programs.mbsync.enable = true;
+  services.imapnotify.enable = true;
   accounts.email.accounts = {
     luke = {
       address = "luke.z24680@gmail.com";
-	  userName = "luke.z24680@gmail.com";
-	  passwordCommand = toString ( pkgs.writeShellScript "get-oauth" ''
-		## ~!shell!~
-		export PATH=/run/wrappers/bin:/home/qwertyu/.nix-profile/bin:/nix/profile/bin:/home/qwertyu/.local/state/nix/profile/bin:/etc/profiles/per-user/qwertyu/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/nix/store/hhfm5fkvb1alg1np5a69m2qlcjqhr062-binutils-wrapper-2.44/bin:/nix/store/3n871f246mhqz4hq95jprwi674l3yhzc-hyprland-qtutils-0.1.4/bin:/nix/store/fx0cjyvqjmfnbqxcd60bwaf36ak16q2q-pciutils-3.13.0/bin:/nix/store/scygnffjs378x8h9ssk2fk765p80g030-pkgconf-wrapper-2.4.3/bin
-	    oama access luke.z24680@gmail.com
-	  '' );
+	    userName = "luke.z24680@gmail.com";
+	    passwordCommand = toString ( pkgs.writeShellScript "get-oauth" ''
+		  ## ~!shell!~
+		  export PATH=/run/wrappers/bin:/home/qwertyu/.nix-profile/bin:/nix/profile/bin:/home/qwertyu/.local/state/nix/profile/bin:/etc/profiles/per-user/qwertyu/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/nix/store/hhfm5fkvb1alg1np5a69m2qlcjqhr062-binutils-wrapper-2.44/bin:/nix/store/3n871f246mhqz4hq95jprwi674l3yhzc-hyprland-qtutils-0.1.4/bin:/nix/store/fx0cjyvqjmfnbqxcd60bwaf36ak16q2q-pciutils-3.13.0/bin:/nix/store/scygnffjs378x8h9ssk2fk765p80g030-pkgconf-wrapper-2.4.3/bin
+	      secret-tool lookup key1 value1
+	    '' );
       primary = true;
-	  imap = {
+      mbsync.enable = true;
+	    imap = {
         host = "imap.gmail.com";
-		port = 993;
-		tls = {
-		  enable = true;
-		};
-	  };
+		    port = 993;
+		    tls = {
+		      enable = true;
+		    };
+	    };
       imapnotify = {
         enable = true;
-    	onNotify = "${pkgs.isync}/bin/mbsync gmail && ${pkgs.notmuch}/bin/notmuch new && ${pkgs.dunst}/bin/dunstify \"You've got mail!\"";
-		boxes = [ "INBOX" ];
-		extraArgs =	[
-		  "-log-level debug"
-		];
-		extraConfig = {
-		  tlsOptions = {
-		    rejectUnauthorized = false;
-		  };
-		  xoAuth2 = true;
-		};
+    	  onNotify = "${pkgs.isync}/bin/mbsync luke && ${pkgs.notmuch}/bin/notmuch new && ${pkgs.dunst}/bin/dunstify \"You've got mail!\"";
+		    boxes = [ "INBOX" ];
+		    extraArgs =	[
+		      "-log-level debug"
+		    ];
+		    extraConfig = {
+		      tlsOptions = {
+		        rejectUnauthorized = false;
+		      };
+		      xoAuth2 = false;
+		    };
       };
     };
-  };
-  
-  services.imapnotify = {
-    enable = true;
   };
 
   # git config
   programs.git = {
     enable = true;
-    userEmail = "luke.z24680@gmail.com";
-    userName = "qwertyu";
+    settings = {
+      user = {
+        email = "luke.z24680@gmail.com";
+        username = "qwertyu";
+      };
+    };
   };
 
   programs.emacs = {
@@ -94,10 +97,18 @@ in
       (emacsPackagesFor emacs).emacsWithPackages (
         epkgs: with epkgs; [
           tree-sitter-langs
-          vterm
-          tree-sitter
-          tsc
-          treesit-grammars.with-all-grammars 
+          (treesit-grammars.with-grammars (p: [
+            p.tree-sitter-java
+            p.tree-sitter-python
+            p.tree-sitter-c
+            p.tree-sitter-go
+            p.tree-sitter-elisp
+            p.tree-sitter-bash
+            p.tree-sitter-rust
+            p.tree-sitter-json
+            p.tree-sitter-haskell
+            p.tree-sitter-latex
+          ]))
         ]
       )
     );

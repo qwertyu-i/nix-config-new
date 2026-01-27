@@ -17,7 +17,7 @@ static const char col_normborder[]  = "#928374";
 static const char col_fg[]          = "#ebdbb2";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_fg,    col_normbg,col_normborder },
+	[SchemeNorm] = { col_fg,    col_normbg,NULL },
 	[SchemeSel]  = { col_fg,    col_selbg, col_selborder  },
 	[SchemeStatus]={ col_fg,    col_normbg,NULL  },
 };
@@ -83,12 +83,14 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_normbg, "-nf", col_fg, "-sb", col_selbg, "-sf", col_fg, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *emacs[] = { "emacs", NULL };
+static const char *flameshot[] = { "flameshot", "gui", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_q,      spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_t,      spawn,          {.v = emacs } },
+	{ MODKEY,                       XK_m,      spawn,          {.v = flameshot } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },

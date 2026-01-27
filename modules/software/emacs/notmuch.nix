@@ -9,11 +9,10 @@
     notmuch.emacs
     # oauth software
     oama
-    # stores keys
-    gnome-keyring
     seahorse
     libsecret
   ];
 
+  # stores keys
   services.gnome.gnome-keyring.enable = true;
 }

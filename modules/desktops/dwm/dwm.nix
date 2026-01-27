@@ -7,6 +7,7 @@
   programs.slock.enable = true;
   services.xserver = {
     enable = true;
+    enableTearFree = true;
     displayManager.startx.enable = true;
     windowManager.dwm = {
       enable = true;

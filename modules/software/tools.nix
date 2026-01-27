@@ -13,5 +13,8 @@
     gimp
     ripgrep
     neovim
+    flameshot
+    alacritty
+    mpv
   ];
 }
