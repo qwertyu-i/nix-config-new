@@ -1,5 +1,3 @@
-# Core config
-
 { pkgs, ... }:
 
 {
@@ -12,6 +10,8 @@
   networking.hostName = "qwertyuLockBox"; # Define your hostname.
   
   hardware.opentabletdriver.enable = true;
+  hardware.uinput.enable = true;
+  boot.kernelModules = [ "uinput" ];
 
   services.tlp = {
     enable = true;

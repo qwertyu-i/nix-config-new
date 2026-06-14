@@ -12,6 +12,7 @@
         extraDefCfg = ''
     	  process-unmapped-keys yes
     	  linux-use-trackpoint-property yes
+        concurrent-tap-hold true
     	'';
         config = ''
           (defsrc
@@ -32,8 +33,8 @@
             gal (layer-switch gallium)
             qwr (layer-switch qwerty)
             col (layer-switch focal)
-            sym (tap-hold $tap-time $hold-time tab (layer-while-held symbols))
-            nav (tap-hold $tap-time $hold-time esc (layer-while-held navigation))
+            sym (tap-hold $tap-time $hold-time bspc (layer-while-held navigation))
+            nav (tap-hold $tap-time $hold-time spc (layer-while-held symbols))
             mse (layer-while-held mouse)
             lmf (tap-hold $tap-time $hold-time s lmet )
             rmf (tap-hold $tap-time $hold-time i lmet )
@@ -51,10 +52,14 @@
             rag (tap-hold $tap-time $hold-time a lalt )
             lsg (tap-hold $tap-time $hold-time s lsft )
             rsg (tap-hold $tap-time $hold-time h lsft )
-    		msl (movemouse-accel-left 8 500 1 8)
-    		msd (movemouse-accel-down 8 500 1 8)
-    		msu (movemouse-accel-up 8 500 1 8)
-    		msr (movemouse-accel-right 8 500 1 8)
+    		    msl (movemouse-accel-left 8 500 1 8)
+    		    msd (movemouse-accel-down 8 500 1 8)
+    		    msu (movemouse-accel-up 8 500 1 8)
+    		    msr (movemouse-accel-right 8 500 1 8)
+          )
+
+          (defchordsv2
+            (lalt PrintScreen) tab 70 first-release (qwerty)
           )
           
           (deflayer layers
@@ -77,24 +82,24 @@
             b    l    d    c    v    XX   XX   XX   j    f    o    u    ,    XX
             @lmg @lcg @lag @lsg g    XX   XX   XX   y    @rsg @rag @rcg @rmg XX
             x    q    m    w    z    XX   XX   XX   k    p    '    ;    .
-            XX   XX   @mse XX   XX   XX   XX   XX   XX   ret  XX   XX
-            XX   XX   @nav           spc            bspc @sym XX
+            XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+            XX   XX   @nav           esc            ret  @sym XX
           )
  
           (deflayer focal
             v    l    h    g    k    XX   XX   XX   q    f    o    u    j    XX
             @lmf @lcf @laf @lsf b    XX   XX   XX   y    @rsf @raf @rcf @rmf XX
             z    x    m    d    p    XX   XX   XX   '    w    .    ;    ,
-            XX   XX   @mse XX   XX   XX   XX   XX   XX   ret  XX   XX
-            XX   XX   @nav           spc            bspc @sym XX
+            XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+            XX   XX   @nav           esc            ret  @sym XX
           )
 
           (deflayer symbols
             S-1  S-2  S-3  S-4  S-5  XX   XX   XX   =    7    8    9    +    XX
             \    S-\  S-[  S-9  [    XX   XX   XX   S-8  4    5    6    -    XX
             S-6  S-7  S-]  S-0  ]    XX   XX   XX   0    1    2    3    /
-            XX   XX   @grl XX   XX   XX   XX   XX   XX   XX   XX   XX
-            XX   XX   XX             tab            XX   XX   XX
+            XX   XX   _    XX   XX   XX   XX   XX   XX   @grl XX   XX
+            XX   XX   XX             tab            _    _    XX
           )
 
           (deflayer navigation

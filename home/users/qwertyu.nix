@@ -1,5 +1,5 @@
 # i'll get around to modularising this... some day...
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   user = "qwertyu";
   homedir = "/home/${user}";
@@ -85,7 +85,7 @@ in
     };
   };
 
-  programs.emacs = {
+  services.emacs = {
     enable = true;
     package = with pkgs; (
       (emacsPackagesFor emacs).emacsWithPackages (
@@ -249,7 +249,7 @@ in
 
       max_icon_size = 64;
 
-      icon_path = "/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/;";
+      icon_path = lib.mkForce "/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/;";
 
       sticky_history = "yes";
 
