@@ -4,6 +4,7 @@
   imports = [
         ../../default.nix
         ../../modules/desktops/dwm/dwm.nix
+        ../../modules/desktops/sway/sway.nix
         ./hardware-configuration.nix 
       ]
       ++ lib.filter 
